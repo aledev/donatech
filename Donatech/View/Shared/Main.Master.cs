@@ -41,11 +41,11 @@ namespace Donatech.View.Shared
         #endregion
 
         #region Metodos Publicos
-        public Usuario GetDatosUsuarioSession()
+        public UsuarioDto GetDatosUsuarioSession()
         {
             if(Session[Constantes.SESSION_USER] != null)
             {
-                return (Usuario)Session[Constantes.SESSION_USER];
+                return (UsuarioDto)Session[Constantes.SESSION_USER];
             }
 
             return null;
@@ -57,7 +57,17 @@ namespace Donatech.View.Shared
                 page,
                 page.GetType(),
                 "showMessageDialog",
-                $"showModalMessage(\"${title})\",\"${message}\")",
+                $"showModalMessage(\"{title}\",\"{message.Replace("\"", "'")}\")",
+                true);
+        }
+
+        public void ShowAlertMessage(Page page, AlertMessageTypeEnum type, string message, string url = "")
+        {
+            ScriptManager.RegisterStartupScript(
+                page,
+                page.GetType(),
+                "showAlertMessage",
+                $"showAlertMessage(\"{type}\", \"{message.Replace("\"", "'")}\", \"{url}\")",
                 true);
         }
         #endregion

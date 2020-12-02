@@ -9,20 +9,20 @@ namespace Donatech
     public class AdministradorController
     {
         private readonly frmAdminUsuarios view;
-        private List<Usuario> lstUsuarios
+        private List<UsuarioDto> lstUsuarios
         {
             get
             {
                 if (view.Session["lstUsuarios"] == null)
                 {
-                    view.Session["lstUsuarios"] = new List<Usuario>
+                    view.Session["lstUsuarios"] = new List<UsuarioDto>
                     {
-                        new Usuario{ Run = "1-9", Nombre = "Usuario", Apellidos = "Test1", Email = "usertest1@aol.com" },
-                        new Usuario{ Run = "2-7", Nombre = "Usuario", Apellidos = "Test2", Email = "usertest2@aol.com" }
+                        new UsuarioDto{ Run = "1-9", Nombre = "Usuario", Apellidos = "Test1", Email = "usertest1@aol.com" },
+                        new UsuarioDto{ Run = "2-7", Nombre = "Usuario", Apellidos = "Test2", Email = "usertest2@aol.com" }
                     };
                 }
 
-                return (List<Usuario>)view.Session["lstUsuarios"];
+                return (List<UsuarioDto>)view.Session["lstUsuarios"];
             }
             set
             {
@@ -43,7 +43,7 @@ namespace Donatech
 
         public void AgregarUsuario(string rut, string nombre, string apellido, string email)
         {
-            this.lstUsuarios.Add(new Usuario
+            this.lstUsuarios.Add(new UsuarioDto
             {
                 Run = rut,
                 Nombre = nombre,

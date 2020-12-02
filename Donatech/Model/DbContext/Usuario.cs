@@ -33,6 +33,7 @@ namespace Donatech.Model.DbContext
         public string Password { get; set; }
         public int IdRol { get; set; }
         public bool Enabled { get; set; }
+        public string Celular { get; set; }
     
         public virtual Comuna Comuna { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

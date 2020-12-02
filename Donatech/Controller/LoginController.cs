@@ -30,7 +30,7 @@ namespace Donatech
                         return "00-UsuarioNoEncontrado";
                     }
 
-                    var usuario = new Usuario
+                    var usuario = new UsuarioDto
                     {
                         IdRol = usuarioDb.IdRol,
                         Email = usuarioDb.Email,

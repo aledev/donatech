@@ -30,11 +30,13 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdTipo" Type="int" Nullable="false" />
-          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Titulo" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="300" Nullable="false" />
           <Property Name="Estado" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Imagen" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ImagenMimeType" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="IdOferente" Type="int" Nullable="false" />
-          <Property Name="IdDemandante" Type="int" Nullable="false" />
+          <Property Name="IdDemandante" Type="int" />
           <Property Name="FchPublicacion" Type="datetime" Nullable="false" />
           <Property Name="FchFinalizacion" Type="datetime" />
           <Property Name="Enabled" Type="bit" Nullable="false" />
@@ -82,6 +84,7 @@
           <Property Name="Password" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="IdRol" Type="int" Nullable="false" />
           <Property Name="Enabled" Type="bit" Nullable="false" />
+          <Property Name="Celular" Type="varchar" MaxLength="12" Nullable="false" />
         </EntityType>
         <Association Name="FK__Comuna__IdProvin__5070F446">
           <End Role="Provincia" Type="Self.Provincia" Multiplicity="0..1" />
@@ -156,7 +159,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Producto_Usuario1">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
           <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
@@ -247,6 +250,7 @@
           <EntitySet Name="Provincia" EntityType="DonatechModel.Provincia" />
           <EntitySet Name="Region" EntityType="DonatechModel.Region" />
           <EntitySet Name="Rol" EntityType="DonatechModel.Rol" />
+          <EntitySet Name="TipoProducto" EntityType="DonatechModel.TipoProducto" />
           <EntitySet Name="Usuario" EntityType="DonatechModel.Usuario" />
           <AssociationSet Name="FK__Comuna__IdProvin__5070F446" Association="DonatechModel.FK__Comuna__IdProvin__5070F446">
             <End Role="Provincia" EntitySet="Provincia" />
@@ -273,7 +277,6 @@
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
           <EntitySet Name="Producto" EntityType="DonatechModel.Producto" />
-          <EntitySet Name="TipoProducto" EntityType="DonatechModel.TipoProducto" />
           <AssociationSet Name="FK_Producto_TipoProducto" Association="DonatechModel.FK_Producto_TipoProducto">
             <End Role="TipoProducto" EntitySet="TipoProducto" />
             <End Role="Producto" EntitySet="Producto" />
@@ -336,6 +339,14 @@
           <Property Name="nombreRol" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Usuario" Relationship="DonatechModel.FK_Usuario_Rol" FromRole="Rol" ToRole="Usuario" />
         </EntityType>
+        <EntityType Name="TipoProducto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Producto" Relationship="DonatechModel.FK_Producto_TipoProducto" FromRole="TipoProducto" ToRole="Producto" />
+        </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Id" />
@@ -350,6 +361,7 @@
           <Property Name="Password" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="IdRol" Type="Int32" Nullable="false" />
           <Property Name="Enabled" Type="Boolean" Nullable="false" />
+          <Property Name="Celular" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Comuna" Relationship="DonatechModel.FK_Usuario_Comuna" FromRole="Usuario" ToRole="Comuna" />
           <NavigationProperty Name="Mensaje" Relationship="DonatechModel.FK_Mensaje_Usuario" FromRole="Usuario" ToRole="Mensaje" />
           <NavigationProperty Name="Mensaje1" Relationship="DonatechModel.FK_Mensaje_Usuario1" FromRole="Usuario" ToRole="Mensaje" />
@@ -435,25 +447,19 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdTipo" Type="Int32" Nullable="false" />
-          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Titulo" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="Estado" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Imagen" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImagenMimeType" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="IdOferente" Type="Int32" Nullable="false" />
-          <Property Name="IdDemandante" Type="Int32" Nullable="false" />
+          <Property Name="IdDemandante" Type="Int32" />
           <Property Name="FchPublicacion" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="FchFinalizacion" Type="DateTime" Precision="3" />
           <Property Name="Enabled" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="TipoProducto" Relationship="DonatechModel.FK_Producto_TipoProducto" FromRole="Producto" ToRole="TipoProducto" />
           <NavigationProperty Name="Usuario" Relationship="DonatechModel.FK_Producto_Usuario" FromRole="Producto" ToRole="Usuario" />
           <NavigationProperty Name="Usuario1" Relationship="DonatechModel.FK_Producto_Usuario1" FromRole="Producto" ToRole="Usuario" />
-        </EntityType>
-        <EntityType Name="TipoProducto">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Producto" Relationship="DonatechModel.FK_Producto_TipoProducto" FromRole="TipoProducto" ToRole="Producto" />
         </EntityType>
         <Association Name="FK_Producto_TipoProducto">
           <End Type="DonatechModel.TipoProducto" Role="TipoProducto" Multiplicity="1" />
@@ -480,7 +486,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Producto_Usuario1">
-          <End Type="DonatechModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="DonatechModel.Usuario" Role="Usuario" Multiplicity="0..1" />
           <End Type="DonatechModel.Producto" Role="Producto" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
@@ -543,9 +549,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TipoProducto">
+            <EntityTypeMapping TypeName="DonatechModel.TipoProducto">
+              <MappingFragment StoreEntitySet="TipoProducto">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="DonatechModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Celular" ColumnName="Celular" />
                 <ScalarProperty Name="Enabled" ColumnName="Enabled" />
                 <ScalarProperty Name="IdRol" ColumnName="IdRol" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -567,18 +582,12 @@
                 <ScalarProperty Name="FchPublicacion" ColumnName="FchPublicacion" />
                 <ScalarProperty Name="IdDemandante" ColumnName="IdDemandante" />
                 <ScalarProperty Name="IdOferente" ColumnName="IdOferente" />
+                <ScalarProperty Name="ImagenMimeType" ColumnName="ImagenMimeType" />
                 <ScalarProperty Name="Imagen" ColumnName="Imagen" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
                 <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TipoProducto">
-            <EntityTypeMapping TypeName="DonatechModel.TipoProducto">
-              <MappingFragment StoreEntitySet="TipoProducto">
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

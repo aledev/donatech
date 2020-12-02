@@ -114,6 +114,15 @@ namespace Donatech
         public global::System.Web.UI.WebControls.DropDownList ddlComuna;
 
         /// <summary>
+        /// txtCelular control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCelular;
+
+        /// <summary>
         /// ddlTipoUsuario control.
         /// </summary>
         /// <remarks>

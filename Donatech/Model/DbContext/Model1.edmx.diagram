@@ -6,19 +6,19 @@
     <edmx:Diagrams>
       <Diagram DiagramId="c213e8af97444fed9cff8651b5e71549" Name="Diagram1">
         <EntityTypeShape EntityType="DonatechModel.Comuna" Width="1.5" PointX="5.25" PointY="4.5" />
-        <EntityTypeShape EntityType="DonatechModel.Mensaje" Width="1.5" PointX="9.75" PointY="8.375" />
+        <EntityTypeShape EntityType="DonatechModel.Mensaje" Width="1.5" PointX="9.75" PointY="8.75" />
         <EntityTypeShape EntityType="DonatechModel.Provincia" Width="1.5" PointX="3" PointY="4.5" />
         <EntityTypeShape EntityType="DonatechModel.Region" Width="1.5" PointX="0.75" PointY="4.75" />
-        <EntityTypeShape EntityType="DonatechModel.Rol" Width="1.5" PointX="3.75" PointY="1.75" />
-        <EntityTypeShape EntityType="DonatechModel.Usuario" Width="1.5" PointX="7.5" PointY="3.5" />
+        <EntityTypeShape EntityType="DonatechModel.Rol" Width="1.5" PointX="5.25" PointY="1.75" />
+        <EntityTypeShape EntityType="DonatechModel.TipoProducto" Width="1.5" PointX="7.5" PointY="0.75" />
+        <EntityTypeShape EntityType="DonatechModel.Usuario" Width="1.5" PointX="7.5" PointY="3.375" />
         <AssociationConnector Association="DonatechModel.FK__Comuna__IdProvin__5070F446" />
         <AssociationConnector Association="DonatechModel.FK_Usuario_Comuna" />
         <AssociationConnector Association="DonatechModel.FK_Mensaje_Usuario" />
         <AssociationConnector Association="DonatechModel.FK_Mensaje_Usuario1" />
         <AssociationConnector Association="DonatechModel.FK__Provincia__IdReg__4BAC3F29" />
         <AssociationConnector Association="DonatechModel.FK_Usuario_Rol" />
-        <EntityTypeShape EntityType="DonatechModel.Producto" Width="1.5" PointX="9.75" PointY="3.75" />
-        <EntityTypeShape EntityType="DonatechModel.TipoProducto" Width="1.5" PointX="7.5" PointY="0.75" />
+        <EntityTypeShape EntityType="DonatechModel.Producto" Width="1.5" PointX="9.75" PointY="2.25" />
         <AssociationConnector Association="DonatechModel.FK_Producto_TipoProducto" />
         <AssociationConnector Association="DonatechModel.FK_Producto_Usuario" />
         <AssociationConnector Association="DonatechModel.FK_Producto_Usuario1" />

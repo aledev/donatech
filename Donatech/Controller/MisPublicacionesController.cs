@@ -1,7 +1,10 @@
-﻿using Donatech.View;
+﻿using Donatech.Model;
+using Donatech.View;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace Donatech.Controller
@@ -16,15 +19,46 @@ namespace Donatech.Controller
             this.view = view;
         }
 
-        public void CargarMisPublicaciones()
+        public async Task<(bool Result, string Message)> CargarMisPublicaciones(int idOferente)
         {
             try
             {
+                List<ProductoDto> publicacionesList = new List<ProductoDto>();
 
+                using(dbContext = new Model.DbContext.DonatechEntities())
+                {
+                    publicacionesList = await dbContext.Producto.Where(p => p.IdOferente == idOferente).Select(p => 
+                    new ProductoDto {
+                        Id = p.Id,
+                        Descripcion = p.Descripcion,
+                        Estado = p.Estado,
+                        FchFinalizacion = p.FchFinalizacion,
+                        FchPublicacion = p.FchPublicacion,
+                        IdOferente = p.IdOferente,
+                        IdDemandante = p.IdDemandante,
+                        Imagen = p.Imagen,
+                        ImagenMimeType = p.ImagenMimeType,
+                        IdTipo = p.IdTipo,
+                        Titulo = p.Titulo,
+                        Enabled = p.Enabled
+                    }).ToListAsync();
+                }
+
+                foreach (var item in publicacionesList)
+                {
+                    item.ImagenBase64 = $"{item.ImagenMimeType},{Convert.ToBase64String(item.Imagen)}";
+                    item.Imagen = null;
+                    item.ImagenMimeType = null;
+                }
+
+                this.view.lstPublicaciones.DataSource = publicacionesList;
+                this.view.DataBind();
+
+                return (true, string.Empty);
             }
-            catch
+            catch(Exception ex)
             {
-
+                return (false, $"Error inesperado al obtener la lista de publicaciones. Detalle: \"{ex.Message}\"");
             }
         }
     }

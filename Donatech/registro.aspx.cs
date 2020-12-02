@@ -44,7 +44,7 @@ namespace Donatech
                     return;
                 }
 
-                var usuario = new Usuario();
+                var usuario = new UsuarioDto();
                 usuario.Nombre = this.txtNombre.Text.Trim();
                 usuario.Apellidos = this.txtApellidos.Text.Trim();
                 usuario.Direccion = this.txtDireccion.Text.Trim();
@@ -53,6 +53,7 @@ namespace Donatech
                 usuario.IdRol = int.Parse(this.ddlTipoUsuario.SelectedValue);
                 usuario.Password = this.txtPassword.Text.Trim();
                 usuario.Run = this.txtRun.Text.Trim();
+                usuario.Celular = this.txtCelular.Text.Trim();
                 usuario.Enabled = true;
 
                 var result = await controller.RegistrarUsuario(usuario);
@@ -99,6 +100,11 @@ namespace Donatech
             {
                 result = false;
                 validationError += "<li>Debe ingresar una direccion.</li>";
+            }
+            if (string.IsNullOrEmpty(this.txtCelular.Text.Trim()))
+            {
+                result = false;
+                validationError += "<li>Debe ingresar un celular.</li>";
             }
             if (string.IsNullOrEmpty(this.txtPassword.Text.Trim()))
             {

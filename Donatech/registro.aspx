@@ -88,6 +88,11 @@
                         <asp:DropDownList ID="ddlComuna" name="ddlComuna" runat="server" CssClass="form-control"></asp:DropDownList>
                     </div>
                     <div class="form-group col-md-6">
+                        <label for="txtCelular">Celular</label>
+                        <asp:TextBox ID="txtCelular" name="txtCelular" runat="server" CssClass="form-control" MaxLength="12"></asp:TextBox>
+                        <small id="celHelp" class="form-text text-muted">(ej: 56912345678).</small>
+                    </div>
+                    <div class="form-group col-md-6">
                         <label for="ddlTipoUsuario">Tipo Usuario</label>
                         <asp:DropDownList ID="ddlTipoUsuario" name="ddlTipoUsuario" runat="server" CssClass="form-control"></asp:DropDownList>
                     </div>

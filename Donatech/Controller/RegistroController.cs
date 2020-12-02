@@ -26,7 +26,7 @@ namespace Donatech
                 using (dbContext = new DonatechEntities())
                 {
                     var lstComunasDb = await dbContext.Comuna.OrderBy(c => c.Nombre).ToListAsync();
-                    var lstComunas = lstComunasDb.Select(c => new Comuna
+                    var lstComunas = lstComunasDb.Select(c => new ComunaDto
                     {
                         Id = c.Id,
                         Nombre = c.Nombre
@@ -40,9 +40,9 @@ namespace Donatech
             }
             catch 
             {
-                var lstComunas = new List<Comuna>
+                var lstComunas = new List<ComunaDto>
                 {
-                    new Comuna{ Id = 0, Nombre = "[Error al cargar la lista]" }
+                    new ComunaDto{ Id = 0, Nombre = "[Error al cargar la lista]" }
                 };
 
                 view.ddlComuna.DataSource = lstComunas;
@@ -75,7 +75,7 @@ namespace Donatech
             await Task.FromResult(0);
         }
 
-        public async Task<(bool Result, string Message)> RegistrarUsuario(Usuario usuario)
+        public async Task<(bool Result, string Message)> RegistrarUsuario(UsuarioDto usuario)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace Donatech
             }
             catch(Exception ex)
             {
-                return (false, $"Error al intentar registrar el usuario. Detalle: {ex.Message}");
+                return (false, $"Error al intentar registrar el usuario. Detalle: \"{ex.Message}\"");
             }
         }
 
