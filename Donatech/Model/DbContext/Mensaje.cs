@@ -20,7 +20,9 @@ namespace Donatech.Model.DbContext
         public System.DateTime FchEnvio { get; set; }
         public string Mensaje1 { get; set; }
         public bool Enabled { get; set; }
+        public int IdProducto { get; set; }
     
+        public virtual Producto Producto { get; set; }
         public virtual Usuario Usuario { get; set; }
         public virtual Usuario Usuario1 { get; set; }
     }

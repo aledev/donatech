@@ -42,6 +42,9 @@
                                     </small> 
                                 </p>
                                 <p class="card-text"><small class="text-muted">Donacion aceptada el <%# Eval("FchFinalizacion") %></small></p>
+                                <p class="card-text">
+                                    <a class="badge badge-info" href='<%# Eval("UrlContacto") %>'>Ver informaci&oacute;n de contacto</a>
+                                </p>
                             </div>
                         </div>
                     </ItemTemplate>

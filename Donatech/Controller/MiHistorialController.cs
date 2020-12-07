@@ -49,6 +49,7 @@ namespace Donatech.Controller
                     item.ImagenBase64 = $"{item.ImagenMimeType},{Convert.ToBase64String(item.Imagen)}";
                     item.Imagen = null;
                     item.ImagenMimeType = null;
+                    item.UrlContacto = $"{VirtualPathUtility.ToAbsolute("~/View/contacto.aspx")}?idProducto={item.Id}&idUsuario={item.IdOferente}";
                 }
 
                 this.view.lstPublicaciones.DataSource = publicacionesList;

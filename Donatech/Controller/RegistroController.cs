@@ -88,7 +88,7 @@ namespace Donatech
                     if(await dbContext.Usuario.FirstOrDefaultAsync(u => u.Email == usuario.Email) != null)
                     {
                         return (false, "El Email ingresado ya se encuentra registrado");
-                    } 
+                    }
 
                     dbContext.Usuario.Add(new Model.DbContext.Usuario
                     {
@@ -100,6 +100,7 @@ namespace Donatech
                         Nombre = usuario.Nombre,
                         Password = usuario.Password,
                         Run = usuario.Run,
+                        Celular = usuario.Celular,
                         Enabled = true
                     });
 
@@ -114,7 +115,5 @@ namespace Donatech
                 return (false, $"Error al intentar registrar el usuario. Detalle: \"{ex.Message}\"");
             }
         }
-
     }
-
 }

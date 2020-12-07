@@ -24,5 +24,6 @@ namespace Donatech.Model
         public System.DateTime FchPublicacion { get; set; }
         public Nullable<System.DateTime> FchFinalizacion { get; set; }
         public bool Enabled { get; set; }
+        public string UrlContacto { get; set; }
     }
 }

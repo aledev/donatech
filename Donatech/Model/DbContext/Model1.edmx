@@ -23,6 +23,7 @@
           <Property Name="FchEnvio" Type="datetime" Nullable="false" />
           <Property Name="Mensaje" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="Enabled" Type="bit" Nullable="false" />
+          <Property Name="IdProducto" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Producto">
           <Key>
@@ -107,6 +108,18 @@
             </Principal>
             <Dependent Role="Provincia">
               <PropertyRef Name="IdRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mensaje_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Mensaje" Type="Self.Mensaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mensaje">
+              <PropertyRef Name="IdProducto" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -211,6 +224,10 @@
             <End Role="Region" EntitySet="Region" />
             <End Role="Provincia" EntitySet="Provincia" />
           </AssociationSet>
+          <AssociationSet Name="FK_Mensaje_Producto" Association="Self.FK_Mensaje_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Mensaje" EntitySet="Mensaje" />
+          </AssociationSet>
           <AssociationSet Name="FK_Mensaje_Usuario" Association="Self.FK_Mensaje_Usuario">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Mensaje" EntitySet="Mensaje" />
@@ -246,7 +263,6 @@
       <Schema Namespace="DonatechModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="DonatechEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Comuna" EntityType="DonatechModel.Comuna" />
-          <EntitySet Name="Mensaje" EntityType="DonatechModel.Mensaje" />
           <EntitySet Name="Provincia" EntityType="DonatechModel.Provincia" />
           <EntitySet Name="Region" EntityType="DonatechModel.Region" />
           <EntitySet Name="Rol" EntityType="DonatechModel.Rol" />
@@ -259,14 +275,6 @@
           <AssociationSet Name="FK_Usuario_Comuna" Association="DonatechModel.FK_Usuario_Comuna">
             <End Role="Comuna" EntitySet="Comuna" />
             <End Role="Usuario" EntitySet="Usuario" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Mensaje_Usuario" Association="DonatechModel.FK_Mensaje_Usuario">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Mensaje" EntitySet="Mensaje" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Mensaje_Usuario1" Association="DonatechModel.FK_Mensaje_Usuario1">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Mensaje" EntitySet="Mensaje" />
           </AssociationSet>
           <AssociationSet Name="FK__Provincia__IdReg__4BAC3F29" Association="DonatechModel.FK__Provincia__IdReg__4BAC3F29">
             <End Role="Region" EntitySet="Region" />
@@ -289,6 +297,19 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Producto" EntitySet="Producto" />
           </AssociationSet>
+          <EntitySet Name="Mensaje" EntityType="DonatechModel.Mensaje" />
+          <AssociationSet Name="FK_Mensaje_Producto" Association="DonatechModel.FK_Mensaje_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Mensaje" EntitySet="Mensaje" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mensaje_Usuario" Association="DonatechModel.FK_Mensaje_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Mensaje" EntitySet="Mensaje" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mensaje_Usuario1" Association="DonatechModel.FK_Mensaje_Usuario1">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Mensaje" EntitySet="Mensaje" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Comuna">
           <Key>
@@ -299,19 +320,6 @@
           <Property Name="IdProvincia" Type="Int32" />
           <NavigationProperty Name="Provincia" Relationship="DonatechModel.FK__Comuna__IdProvin__5070F446" FromRole="Comuna" ToRole="Provincia" />
           <NavigationProperty Name="Usuario" Relationship="DonatechModel.FK_Usuario_Comuna" FromRole="Comuna" ToRole="Usuario" />
-        </EntityType>
-        <EntityType Name="Mensaje">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdEmisor" Type="Int32" Nullable="false" />
-          <Property Name="IdReceptor" Type="Int32" Nullable="false" />
-          <Property Name="FchEnvio" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Mensaje1" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="Enabled" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Usuario" Relationship="DonatechModel.FK_Mensaje_Usuario" FromRole="Mensaje" ToRole="Usuario" />
-          <NavigationProperty Name="Usuario1" Relationship="DonatechModel.FK_Mensaje_Usuario1" FromRole="Mensaje" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Provincia">
           <Key>
@@ -363,11 +371,11 @@
           <Property Name="Enabled" Type="Boolean" Nullable="false" />
           <Property Name="Celular" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Comuna" Relationship="DonatechModel.FK_Usuario_Comuna" FromRole="Usuario" ToRole="Comuna" />
-          <NavigationProperty Name="Mensaje" Relationship="DonatechModel.FK_Mensaje_Usuario" FromRole="Usuario" ToRole="Mensaje" />
-          <NavigationProperty Name="Mensaje1" Relationship="DonatechModel.FK_Mensaje_Usuario1" FromRole="Usuario" ToRole="Mensaje" />
           <NavigationProperty Name="Rol" Relationship="DonatechModel.FK_Usuario_Rol" FromRole="Usuario" ToRole="Rol" />
           <NavigationProperty Name="Producto" Relationship="DonatechModel.FK_Producto_Usuario" FromRole="Usuario" ToRole="Producto" />
           <NavigationProperty Name="Producto1" Relationship="DonatechModel.FK_Producto_Usuario1" FromRole="Usuario" ToRole="Producto" />
+          <NavigationProperty Name="Mensaje" Relationship="DonatechModel.FK_Mensaje_Usuario" FromRole="Usuario" ToRole="Mensaje" />
+          <NavigationProperty Name="Mensaje1" Relationship="DonatechModel.FK_Mensaje_Usuario1" FromRole="Usuario" ToRole="Mensaje" />
         </EntityType>
         <Association Name="FK__Comuna__IdProvin__5070F446">
           <End Type="DonatechModel.Provincia" Role="Provincia" Multiplicity="0..1" />
@@ -390,30 +398,6 @@
             </Principal>
             <Dependent Role="Usuario">
               <PropertyRef Name="IdComuna" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Mensaje_Usuario">
-          <End Type="DonatechModel.Usuario" Role="Usuario" Multiplicity="1" />
-          <End Type="DonatechModel.Mensaje" Role="Mensaje" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Mensaje">
-              <PropertyRef Name="IdEmisor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Mensaje_Usuario1">
-          <End Type="DonatechModel.Usuario" Role="Usuario" Multiplicity="1" />
-          <End Type="DonatechModel.Mensaje" Role="Mensaje" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Mensaje">
-              <PropertyRef Name="IdReceptor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -460,6 +444,7 @@
           <NavigationProperty Name="TipoProducto" Relationship="DonatechModel.FK_Producto_TipoProducto" FromRole="Producto" ToRole="TipoProducto" />
           <NavigationProperty Name="Usuario" Relationship="DonatechModel.FK_Producto_Usuario" FromRole="Producto" ToRole="Usuario" />
           <NavigationProperty Name="Usuario1" Relationship="DonatechModel.FK_Producto_Usuario1" FromRole="Producto" ToRole="Usuario" />
+          <NavigationProperty Name="Mensaje" Relationship="DonatechModel.FK_Mensaje_Producto" FromRole="Producto" ToRole="Mensaje" />
         </EntityType>
         <Association Name="FK_Producto_TipoProducto">
           <End Type="DonatechModel.TipoProducto" Role="TipoProducto" Multiplicity="1" />
@@ -497,6 +482,57 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Mensaje">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEmisor" Type="Int32" Nullable="false" />
+          <Property Name="IdReceptor" Type="Int32" Nullable="false" />
+          <Property Name="FchEnvio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Mensaje1" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Enabled" Type="Boolean" Nullable="false" />
+          <Property Name="IdProducto" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Producto" Relationship="DonatechModel.FK_Mensaje_Producto" FromRole="Mensaje" ToRole="Producto" />
+          <NavigationProperty Name="Usuario" Relationship="DonatechModel.FK_Mensaje_Usuario" FromRole="Mensaje" ToRole="Usuario" />
+          <NavigationProperty Name="Usuario1" Relationship="DonatechModel.FK_Mensaje_Usuario1" FromRole="Mensaje" ToRole="Usuario" />
+        </EntityType>
+        <Association Name="FK_Mensaje_Producto">
+          <End Type="DonatechModel.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="DonatechModel.Mensaje" Role="Mensaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mensaje">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mensaje_Usuario">
+          <End Type="DonatechModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="DonatechModel.Mensaje" Role="Mensaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mensaje">
+              <PropertyRef Name="IdEmisor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mensaje_Usuario1">
+          <End Type="DonatechModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="DonatechModel.Mensaje" Role="Mensaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mensaje">
+              <PropertyRef Name="IdReceptor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -508,18 +544,6 @@
               <MappingFragment StoreEntitySet="Comuna">
                 <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Mensaje">
-            <EntityTypeMapping TypeName="DonatechModel.Mensaje">
-              <MappingFragment StoreEntitySet="Mensaje">
-                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
-                <ScalarProperty Name="Mensaje1" ColumnName="Mensaje" />
-                <ScalarProperty Name="FchEnvio" ColumnName="FchEnvio" />
-                <ScalarProperty Name="IdReceptor" ColumnName="IdReceptor" />
-                <ScalarProperty Name="IdEmisor" ColumnName="IdEmisor" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -588,6 +612,19 @@
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Titulo" ColumnName="Titulo" />
                 <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mensaje">
+            <EntityTypeMapping TypeName="DonatechModel.Mensaje">
+              <MappingFragment StoreEntitySet="Mensaje">
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+                <ScalarProperty Name="Mensaje1" ColumnName="Mensaje" />
+                <ScalarProperty Name="FchEnvio" ColumnName="FchEnvio" />
+                <ScalarProperty Name="IdReceptor" ColumnName="IdReceptor" />
+                <ScalarProperty Name="IdEmisor" ColumnName="IdEmisor" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

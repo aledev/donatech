@@ -42,6 +42,9 @@
                                     </small> 
                                 </p>
                                 <p class="card-text"><small class="text-muted">Publicado el <%# Eval("FchPublicacion") %></small></p>
+                                <p class="card-text" style='<%# Eval("IdDemandante") == null ? "display:none" : "" %>'>
+                                    <a class="badge badge-info" href='<%# Eval("UrlContacto") %>'>Ver informaci&oacute;n de contacto</a>
+                                </p>
                             </div>
                         </div>
                     </ItemTemplate>

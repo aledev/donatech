@@ -26,12 +26,12 @@ namespace Donatech.Model.DbContext
         }
     
         public virtual DbSet<Comuna> Comuna { get; set; }
-        public virtual DbSet<Mensaje> Mensaje { get; set; }
         public virtual DbSet<Provincia> Provincia { get; set; }
         public virtual DbSet<Region> Region { get; set; }
         public virtual DbSet<Rol> Rol { get; set; }
         public virtual DbSet<TipoProducto> TipoProducto { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Producto> Producto { get; set; }
+        public virtual DbSet<Mensaje> Mensaje { get; set; }
     }
 }

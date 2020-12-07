@@ -55,6 +55,9 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -87,6 +90,9 @@
     <Content Include="img\donation.jpg" />
     <Content Include="img\favicon.ico" />
     <Content Include="img\logo1.png" />
+    <Content Include="img\user-profile-02.png" />
+    <Content Include="img\user-profile-03.png" />
+    <Content Include="img\user-profile.png" />
     <Content Include="login.aspx" />
     <Content Include="Model\DbContext\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -99,6 +105,7 @@
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Content Include="View\buscarPublicaciones.aspx" />
+    <Content Include="View\contacto.aspx" />
     <Content Include="View\frmAdminUsuarios.aspx" />
     <Content Include="View\frmMenuDemandante.aspx" />
     <Content Include="View\home.aspx" />
@@ -112,6 +119,7 @@
   <ItemGroup>
     <Compile Include="Controller\AdministradorController.cs" />
     <Compile Include="Controller\BuscarPublicacionController.cs" />
+    <Compile Include="Controller\ContactoController.cs" />
     <Compile Include="Controller\HomeController.cs" />
     <Compile Include="Controller\MiHistorialController.cs" />
     <Compile Include="Controller\MisPublicacionesController.cs" />
@@ -164,6 +172,7 @@
       <DependentUpon>login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controller\LoginController.cs" />
+    <Compile Include="Model\MensajeDto.cs" />
     <Compile Include="Model\ProductoDto.cs" />
     <Compile Include="Model\TipoProductoDto.cs" />
     <Compile Include="Utils\Constantes.cs" />
@@ -174,6 +183,13 @@
     </Compile>
     <Compile Include="View\buscarPublicaciones.aspx.designer.cs">
       <DependentUpon>buscarPublicaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\contacto.aspx.cs">
+      <DependentUpon>contacto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\contacto.aspx.designer.cs">
+      <DependentUpon>contacto.aspx</DependentUpon>
     </Compile>
     <Compile Include="View\frmAdminUsuarios.aspx.cs">
       <DependentUpon>frmAdminUsuarios.aspx</DependentUpon>

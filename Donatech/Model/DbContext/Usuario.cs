@@ -17,10 +17,10 @@ namespace Donatech.Model.DbContext
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Usuario()
         {
-            this.Mensaje = new HashSet<Mensaje>();
-            this.Mensaje1 = new HashSet<Mensaje>();
             this.Producto = new HashSet<Producto>();
             this.Producto1 = new HashSet<Producto>();
+            this.Mensaje = new HashSet<Mensaje>();
+            this.Mensaje1 = new HashSet<Mensaje>();
         }
     
         public int Id { get; set; }
@@ -36,14 +36,14 @@ namespace Donatech.Model.DbContext
         public string Celular { get; set; }
     
         public virtual Comuna Comuna { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Mensaje> Mensaje { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Mensaje> Mensaje1 { get; set; }
         public virtual Rol Rol { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Producto> Producto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Producto> Producto1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Mensaje> Mensaje { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Mensaje> Mensaje1 { get; set; }
     }
 }

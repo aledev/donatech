@@ -150,6 +150,5 @@ namespace Donatech
                 $"showAlertMessage(\"{message}\")",
                 true);
         }
-        
     }
 }

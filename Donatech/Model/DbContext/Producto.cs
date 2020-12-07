@@ -14,6 +14,12 @@ namespace Donatech.Model.DbContext
     
     public partial class Producto
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Producto()
+        {
+            this.Mensaje = new HashSet<Mensaje>();
+        }
+    
         public int Id { get; set; }
         public int IdTipo { get; set; }
         public string Titulo { get; set; }
@@ -30,5 +36,7 @@ namespace Donatech.Model.DbContext
         public virtual TipoProducto TipoProducto { get; set; }
         public virtual Usuario Usuario { get; set; }
         public virtual Usuario Usuario1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Mensaje> Mensaje { get; set; }
     }
 }
