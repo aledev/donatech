@@ -48,12 +48,7 @@ namespace Donatech.View
                     this.ltlEmail.Text = infoContacto.Result.Email;
                     this.ltlDireccion.Text = infoContacto.Result.Direccion;
 
-                    var chats = await controller.ObtenerMensajes(((Main)this.Master).GetDatosUsuarioSession().Id, idProducto);
-                    if (chats.Mensajes != null)
-                    {
-                        this.lstMensajes.DataSource = chats.Mensajes;
-                        this.lstMensajes.DataBind();
-                    }
+                    CargarMensajesChat();
                 }
             }
             catch (Exception ex)
@@ -61,6 +56,52 @@ namespace Donatech.View
                 ((Main)this.Master).ShowModalMessage(this,
                     "Donatech - Error",
                     $"Ha ocurrido un error inesperado. Detalle: {ex.Message}");
+            }
+        }
+
+        protected async void btnSendMessage_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var mensaje = new MensajeDto();
+                mensaje.FchEnvio = DateTime.Now;
+                mensaje.IdEmisor = ((Main)this.Master).GetDatosUsuarioSession().Id;
+                mensaje.IdReceptor = int.Parse(this.Request.QueryString["idUsuario"]);
+                mensaje.IdProducto = int.Parse(this.Request.QueryString["idProducto"]);
+                mensaje.Mensaje = this.txtMessage.Value.Trim();
+                mensaje.Enabled = true;
+
+                var result = await controller.InsertarMensaje(mensaje);
+
+                if (result.Result)
+                {
+                    ((Main)this.Master).ShowAlertMessage(this,
+                        AlertMessageTypeEnum.Info,
+                        "Mensaje enviado correctamente");
+                    CargarMensajesChat();
+                    return;
+                }
+
+                ((Main)this.Master).ShowAlertMessage(this,
+                        AlertMessageTypeEnum.Danger,
+                        result.Message);
+            }
+            catch(Exception ex)
+            {
+                ((Main)this.Master).ShowModalMessage(this,
+                    "Donatech - Error",
+                    $"Ha ocurrido un error inesperado. Detalle: {ex.Message}");
+            }
+        }
+
+        private async void CargarMensajesChat()
+        {
+            int idProducto = int.Parse(Request.QueryString["idProducto"] ?? "0");
+            var chats = await controller.ObtenerMensajes(((Main)this.Master).GetDatosUsuarioSession().Id, idProducto);
+            if (chats.Mensajes != null)
+            {
+                this.lstMensajes.DataSource = chats.Mensajes;
+                this.lstMensajes.DataBind();
             }
         }
 

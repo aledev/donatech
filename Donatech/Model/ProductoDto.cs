@@ -25,5 +25,8 @@ namespace Donatech.Model
         public Nullable<System.DateTime> FchFinalizacion { get; set; }
         public bool Enabled { get; set; }
         public string UrlContacto { get; set; }
+        public int Index { get; set; }
+        public string CardDeckHeaderHtml { get; set; }
+        public string CardDeckFooterHtml { get; set; }
     }
 }

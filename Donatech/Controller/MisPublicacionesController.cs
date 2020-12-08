@@ -44,12 +44,17 @@ namespace Donatech.Controller
                     }).ToListAsync();
                 }
 
+                int index = 0;
                 foreach (var item in publicacionesList)
                 {
                     item.ImagenBase64 = $"{item.ImagenMimeType},{Convert.ToBase64String(item.Imagen)}";
                     item.Imagen = null;
                     item.ImagenMimeType = null;
                     item.UrlContacto = $"{VirtualPathUtility.ToAbsolute("~/View/contacto.aspx")}?idProducto={item.Id}&idUsuario={item.IdDemandante}";
+                    item.Index = index;
+                    item.CardDeckHeaderHtml = index == 0 || index % 3 == 0 ? "<div class=\"card-deck\">" : "";
+                    item.CardDeckFooterHtml = ((index + 1) % 3 == 0) || (index + 1 == publicacionesList.Count) ? "</div>" : "";
+                    index++;
                 }
 
                 this.view.lstPublicaciones.DataSource = publicacionesList;

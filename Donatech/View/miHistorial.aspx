@@ -26,10 +26,8 @@
     
             <div class="row col-md-9">
                 <asp:Repeater ID="lstPublicaciones" runat="server">
-                    <HeaderTemplate>
-                        <div class="card-deck">
-                    </HeaderTemplate>
                     <ItemTemplate>
+                        <%# Eval("CardDeckHeaderHtml") %>
                         <div class="card">
                             <img src='<%# Eval("ImagenBase64") %>' class="card-img-top" alt='<%# Eval("Titulo") %>'>
                             <div class="card-body">
@@ -43,13 +41,19 @@
                                 </p>
                                 <p class="card-text"><small class="text-muted">Donacion aceptada el <%# Eval("FchFinalizacion") %></small></p>
                                 <p class="card-text">
-                                    <a class="badge badge-info" href='<%# Eval("UrlContacto") %>'>Ver informaci&oacute;n de contacto</a>
+                                    <a class="badge badge-info" href='<%# Eval("UrlContacto") %>'>Ver info de contacto</a>
                                 </p>
                             </div>
                         </div>
+                        <%# Eval("CardDeckFooterHtml") %>
                     </ItemTemplate>
                     <FooterTemplate>
-                        <asp:Label ID="lblEmptyData" runat="server" Visible='<%# ((Repeater)Container.NamingContainer).Items.Count == 0 %>' Text="No tienes historial registrado." />
+                        <div class="card" style='<%# ((Repeater)Container.NamingContainer).Items.Count > 0 ? "display:none" : "" %>'>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    No tienes historial registrado.
+                                </p>
+                            </div>
                         </div>
                     </FooterTemplate>
                 </asp:Repeater>  

@@ -128,7 +128,7 @@
                 $("#alertMessage").removeClass("alert-danger alert-info")
 
                 $("#alertMessage").toggleClass(type === "Danger" ? "alert-danger" : "alert-info")
-                $("#alertMessage").html(body)
+                $("#alertMessage").html(`${body}<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>`)
                 $("#alertMessage").show()
 
                 if (type === "Info" && url !== "") {
@@ -148,7 +148,7 @@
         <!-- Update Progress para mostrar un mensaje al usuario cuando se este realizando un postback -->
         <asp:UpdateProgress ID="updProgressBody" runat="server" AssociatedUpdatePanelID="updBody">
             <ProgressTemplate>
-                <div class="alert alert-info" role="alert">
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
                     <div class="spinner-border text-info" role="status">
                         <span class="sr-only">Cargando...</span>
                     </div>

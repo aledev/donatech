@@ -138,6 +138,18 @@
         const volverAction = () => {
             history.back()
         }
+
+        const enviarMensaje = () => {
+            $('#<%=btnSendMessageInp.ClientID%>').click()
+        }
+
+        const initPage = () => {
+            $(document).ready(() => {
+                $('#btnVerMensajes').click()
+            })
+        }
+
+        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(initPage)
     </script>
 
     <div class="container">
@@ -171,7 +183,7 @@
         </div>
 
         <p>
-          <a class="btn btn-info" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+          <a class="btn btn-info" id="btnVerMensajes" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
             Ver Mensajes
           </a>
         </p>
@@ -207,8 +219,13 @@
                         </div>
                       <div class="type_msg">
                         <div class="input_msg_write">
-                          <input type="text" class="write_msg" placeholder="Escriba un mensaje" />
-                          <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                          <input type="text" class="write_msg" placeholder="Escriba un mensaje" id="txtMessage" runat="server" />
+                          <button class="msg_send_btn" type="button" id="btnSendMessage" runat="server" onclick="enviarMensaje()">
+                              <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                          </button>
+                          <div style="display:none">
+                              <asp:Button ID="btnSendMessageInp" runat="server" OnClick="btnSendMessage_Click" />
+                          </div>
                         </div>
                       </div>
                     </div>
